@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - enzyme-simulator-net
+
+  frontend:
+    image: node:14
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+    command: ["npm", "start"]
+    networks:
+      - enzyme-simulator-net
+
+networks:
+  enzyme-simulator-net:
+    driver: bridge
